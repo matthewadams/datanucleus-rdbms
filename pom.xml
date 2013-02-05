@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+Convenient POM to include DataNucleus RDBMS for both JDO and JPA APIs with consideration for transitive dependency exclusions.
+
+To use this, import with the usual groupId/artifactId/version coordinates plus
+
+<type>pom</type>
+<scope>import</scope>
+
+See http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies
+-->
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>me.matthewadams</groupId>
+	<artifactId>datanucleus-rdbms</artifactId>
+	<packaging>pom</packaging>
+	<version>3.1.4</version> <!-- matches DataNucleus released version -->
+	<name>DataNucleus RDBMS Distribution</name>
+	<description>Convenient POM to include DataNucleus RDBMS for both JDO and JPA APIs with consideration for transitive dependency exclusions.</description>
+
+	<properties>
+		<me.matthewadams.datanucleus.jpa.provider.class.name>org.datanucleus.api.jpa.PersistenceProviderImpl</me.matthewadams.datanucleus.jpa.provider.class.name>
+		<me.matthewadams.datanucleus-core.version>3.1.4</me.matthewadams.datanucleus-core.version>
+		<me.matthewadams.datanucleus-api-jdo.version>3.1.3</me.matthewadams.datanucleus-api-jdo.version>
+		<me.matthewadams.datanucleus-jdo-query.version>3.0.2</me.matthewadams.datanucleus-jdo-query.version>
+		<me.matthewadams.datanucleus-mongodb.version>3.1.3</me.matthewadams.datanucleus-mongodb.version>
+		<me.matthewadams.datanucleus-api-jpa.version>3.1.4</me.matthewadams.datanucleus-api-jpa.version>
+		<me.matthewadams.datanucleus-jpa-query.version>3.0.2</me.matthewadams.datanucleus-jpa-query.version>
+		<me.matthewadams.datanucleus-rdbms.version>3.1.4</me.matthewadams.datanucleus-rdbms.version>
+		<me.matthewadams.maven-datanucleus-plugin.version>3.0.2</me.matthewadams.maven-datanucleus-plugin.version>
+		<me.matthewadams.jdo-api.version>3.0.1</me.matthewadams.jdo-api.version>
+		<me.matthewadams.javax.persistence.groupId>org.hibernate.javax.persistence</me.matthewadams.javax.persistence.groupId>
+		<me.matthewadams.javax.persistence.artifactId>hibernate-jpa-2.0-api</me.matthewadams.javax.persistence.artifactId>
+		<me.matthewadams.javax.persistence.version>1.0.1.Final</me.matthewadams.javax.persistence.version>
+		<me.matthewadams.jta.version>1.1</me.matthewadams.jta.version>
+	</properties>
+
+	<dependencyManagement>
+		<!-- stuff supported by current maven pom import facility -->
+		<dependencies>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-core</artifactId>
+				<version>${me.matthewadams.datanucleus-core.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.jdo</groupId>
+						<artifactId>jdo-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.1_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>javax.jdo</groupId>
+				<artifactId>jdo-api</artifactId>
+				<version>${me.matthewadams.jdo-api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${me.matthewadams.javax.persistence.groupId}</groupId>
+				<artifactId>${me.matthewadams.javax.persistence.artifactId}</artifactId>
+				<version>${me.matthewadams.javax.persistence.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-api-jdo</artifactId>
+				<version>${me.matthewadams.datanucleus-api-jdo.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.jdo</groupId>
+						<artifactId>jdo-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-api-jpa</artifactId>
+				<version>${me.matthewadams.datanucleus-api-jpa.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jpa_2.0_spec</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.jdo</groupId>
+						<artifactId>jdo-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-jdo-query</artifactId>
+				<version>${me.matthewadams.datanucleus-jdo-query.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.jdo</groupId>
+						<artifactId>jdo-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-jpa-query</artifactId>
+				<version>${me.matthewadams.datanucleus-jpa-query.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-rdbms</artifactId>
+				<version>${me.matthewadams.datanucleus-rdbms.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-jta_1.1_spec</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>javax.transaction</groupId>
+				<artifactId>jta</artifactId>
+				<version>${me.matthewadams.jta.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<!-- stuff that a new maven "include" facility could support -->
+	<!-- for example, a project that "included" this artifact would effectively be declaring the following dependences -->
+	<dependencies>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.jdo</groupId>
+			<artifactId>jdo-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${me.matthewadams.javax.persistence.groupId}</groupId>
+			<artifactId>${me.matthewadams.javax.persistence.artifactId}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-api-jdo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-api-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-jdo-query</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-jpa-query</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-rdbms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+		</dependency>
+	</dependencies>
+</project>
