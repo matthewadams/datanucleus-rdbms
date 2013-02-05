@@ -127,8 +127,23 @@ See http://maven.apache.org/guides/introduction/introduction-to-dependency-mecha
 		</dependencies>
 	</dependencyManagement>
 	
-	<!-- stuff that a new maven "include" facility could support -->
-	<!-- for example, a project that "included" this artifact would effectively be declaring the following dependences -->
+	<!-- stuff that a new maven dependency scope called "include" facility could support -->
+	
+	<!-- for example, a project that "included" this artifact would effectively be declaring
+	the following dependencies in its pom's <dependencies> section -->
+	
+	<!-- the "include" would look like this in the consuming pom's <dependencies> section:
+	
+	<dependency>
+		<groupId>me.matthewadams</groupId>
+		<artifactId>datanucleus-rdbms</artifactId>
+		<version>3.1.4</version>
+		<scope>include</scope>
+	</dependency>
+	-->
+
+	<!-- "<scope>include</scope>" would imply "<type>pom</type>"; declaring anything otherwise would be an error -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
